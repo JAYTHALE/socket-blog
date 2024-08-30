@@ -10,10 +10,13 @@ exports.createblog = asyncHandler(async (req, res) => {
 })
 exports.readblog = asyncHandler(async (req, res) => {
     const result = await blog.find()
+    io.emit("Todo-Create-Response", result)
     res.json({ message: "read Blog Success", result })
 })
 exports.upadteblog = asyncHandler(async (req, res) => {
     await blog.findByIdAndUpdate(req.params.id, req.body)
+    const result = await Todo.find()
+    io.emit("Todo-Create-Response", result)
     res.json({ message: "update Blog Success" })
 })
 exports.deleteblog = asyncHandler(async (req, res) => {
